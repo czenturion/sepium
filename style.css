@@ -1,0 +1,84 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+/* Fonts */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.product-card__title {
+    font-weight: 600;
+}
+
+.product-card__price {
+    font-weight: 500;
+}
+
+.product-card__sku {
+    font-weight: 400;
+}
+
+/* Product-card pagination side */
+.product-card {
+    border-radius: .5rem;
+    width: 31.75rem;
+    height: 44rem;
+    min-width: 24.375rem;
+}
+
+.listing {
+    width: 100%;
+    height: 100%;
+    padding-top: 6.25rem;
+    margin: 0 auto;
+}
+
+.listing__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 64.75rem;
+    height: 100%;
+    margin: 0 auto;
+}
+
+/* Product-card content side */
+.product-card__content {
+    border-radius: 0 0 .5rem .5rem;
+    padding: .625rem 1.25rem .875rem;
+    width: 100%;
+    height: 22.875rem;
+    background: #f6f6f6;
+}
+
+/* General styles */
+.icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: currentColor;
+}
+
+/* Responsive design styles */
+@media (max-width: 67.5rem) {
+    .listing {
+        padding-top: 3.75rem;
+    }
+
+    .listing__grid {
+        padding: 1.25rem;
+    }
+
+
+}
