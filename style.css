@@ -11,6 +11,22 @@ body {
     height: 100%;
 }
 
+/* html {
+    font-size: 62.5%;
+} */
+
+:root {
+    --c-text: #32312f;
+    --c-muted: #656565;
+    --c-bg: #ffffff;
+    --c-soft: #f6f6f6;
+    --c-line: #e6e6e6;
+    --c-orange: #ff5c00;
+    --c-desc: #000000;
+    --c-desc-t: #fff;
+    --radius: 8px;
+}
+
 /* Fonts */
 
 body {
@@ -29,56 +45,184 @@ body {
     font-weight: 400;
 }
 
+/* Product-card */
 /* Product-card pagination side */
 .product-card {
-    border-radius: .5rem;
-    width: 31.75rem;
-    height: 44rem;
-    min-width: 24.375rem;
+    border-radius: 8px;
+    max-width: 508px;
+    min-width: 390px;
+    width: 100%;
+    height: 704.67px;
+    max-height: 100%;
+    border-radius: var(--radius);
+    background: var(--c-bg);
+    transition: all .1s ease-in-out 0.1s;
+}
+
+.product-card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .listing {
     width: 100%;
     height: 100%;
-    padding-top: 6.25rem;
+    padding: 100px 20px;
     margin: 0 auto;
 }
 
 .listing__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem;
+    gap: 20px;
     width: 100%;
-    max-width: 64.75rem;
+    max-width: 1036px;
     height: 100%;
     margin: 0 auto;
+    padding-bottom: 100px;
+}
+
+.product-card__slider {
+    position: relative;
+    width: 100%;
+    height: 338.67px;
+    border-radius: 8px 8px 0 0;
+    background: #ddd;
+}
+
+.product-card__slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.product-card__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.product-card__zoom {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 32px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2.5px);
+    border-radius: 8px;
+    text-decoration: none;
+    border: 0;
+    color: inherit;
+}
+
+.swiper-pagination {
+    position: static;
+    display: flex;
+    gap: 5px;
+    height: 2px;
+    background: transparent;
+}
+
+.product-card .swiper-pagination-bullet {
+    flex: 1 1 0;
+    height: 2px;
+    margin: 0 !important;
+    border-radius: 0;
+    background: var(--c-line);
+    opacity: 1;
+}
+
+.product-card .swiper-pagination-bullet-active {
+    background: var(--c-orange);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    width: 43px;
+    height: 43px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2.5px);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    font-size: 16px;
+    color: #464646;
+    font-weight: 700;
+}
+
+.product-card__desc {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    color: var(--c-desc-t);
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 5;
+}
+
+.product-card:hover .product-card__desc {
+    display: block;
 }
 
 /* Product-card content side */
 .product-card__content {
-    border-radius: 0 0 .5rem .5rem;
-    padding: .625rem 1.25rem .875rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 8px 8px;
+    padding: 10px 20px 14px;
     width: 100%;
-    height: 22.875rem;
+    height: 366px;
     background: #f6f6f6;
+}
+
+.product-card:hover .product-card__content {
+    background: var(--c-bg);
+}
+
+.product-card__meta {
+    display: inline-flex;
+    gap: 7px;
+    align-items: center;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--c-muted);
+    font-weight: 500;
+    padding-top: 20px
 }
 
 /* General styles */
 .icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 24px;
+    height: 24px;
     fill: currentColor;
 }
 
 /* Responsive design styles */
-@media (max-width: 67.5rem) {
+@media (max-width: 968px) {
     .listing {
-        padding-top: 3.75rem;
+        padding-top: 60px;
     }
 
     .listing__grid {
-        padding: 1.25rem;
+        grid-template-columns: 1fr;
     }
 
 
+}
+
+@media (max-width: 640px) {
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        display: none;
+    }
 }
