@@ -239,6 +239,7 @@ body {
 }
 
 .chip {
+    position: relative;
     border: 0;
     padding: 6px 12px;
     border-radius: 18px;
@@ -266,6 +267,7 @@ body {
 }
 
 .chip__icon {
+    position: relative;
     border-radius: 100px;
     padding: 2px;
     width: 18px;
@@ -274,8 +276,11 @@ body {
 }
 
 .chip__icon .icon--selected {
-    width: 18px;
-    height: 18px;
+    position: absolute;
+    top: 0;
+    left: 1px;
+    width: 24px;
+    height: 24px;
 }
 
 .product-card__price-block {
@@ -413,8 +418,8 @@ body {
 
 /* General styles */
 .icon {
-    width: 2px;
-    height: 2px;
+    width: 22px;
+    height: 22px;
     fill: currentColor;
 }
 
