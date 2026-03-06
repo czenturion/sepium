@@ -1,89 +1,83 @@
-function initFancybox() {
-    if (typeof $ === "undefined" || !$.fancybox) return;
-    $("[data-fancybox]").fancybox({
-        buttons: ["close"],
-        protect: false,
-    });
-}
+$(document).ready(function () {
 
-function initSwipers() {
-    if (typeof Swiper === "undefined") return;
+    if ($.fancybox) {
+        $("[data-fancybox]").fancybox({
+            buttons: ["close"],
+            protect: false,
+        });
+    }
 
-    document.querySelectorAll(".product-card").forEach((card) => {
-        const slider = card.querySelector(".product-card__slider.swiper");
-        if (!slider) return;
+    if (typeof Swiper !== "undefined") {
+        $(".product-card").each(function () {
+            const $card = $(this);
+            const slider = $card.find(".product-card__slider.swiper")[0];
+            if (!slider) return;
 
-        const nextEl = slider.querySelector(".swiper-button-next");
-        const prevEl = slider.querySelector(".swiper-button-prev");
-        const pagEl = card.querySelector(".swiper-pagination");
+            const nextEl = $card.find(".swiper-button-next")[0];
+            const prevEl = $card.find(".swiper-button-prev")[0];
+            const pagEl = $card.find(".swiper-pagination")[0];
 
-        if (!pagEl) {
-            console.warn("Пагинация не найдена для карточки", card);
-            return;
-        }
+            if (!pagEl) {
+                console.warn("Пагинация не найдена для карточки", $card);
+                return;
+            }
 
-        new Swiper(slider, {
-            loop: true,
-            speed: 400,
-            watchOverflow: true,
-            autoplay: false,
-            navigation: {
-                nextEl,
-                prevEl,
-            },
-            pagination: {
-                el: pagEl,
-                clickable: true,
-            },
-            breakpoints: {
-                0: {
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: false,
+            new Swiper(slider, {
+                loop: true,
+                speed: 400,
+                watchOverflow: true,
+                autoplay: false,
+                navigation: {
+                    nextEl,
+                    prevEl,
+                },
+                pagination: {
+                    el: pagEl,
+                    clickable: true,
+                },
+                breakpoints: {
+                    0: {
+                        autoplay: {
+                            delay: 3000,
+                            disableOnInteraction: false,
+                        },
+                    },
+                    641: {
+                        autoplay: false,
                     },
                 },
-                641: {
-                    autoplay: false,
-                },
-            },
+            });
         });
+    }
+
+    $(".product-card__chips").on("click", ".chip", function (e) {
+        e.stopPropagation();
+
+        const $chipsContainer = $(this).closest(".product-card__chips");
+        const $currentChip = $(this);
+        const $oldActive = $chipsContainer.find(".chip--active");
+
+        if ($oldActive.is($currentChip)) return;
+
+        const $icon = $oldActive.find(".chip__icon");
+        if ($icon.length) {
+            $currentChip.prepend($icon);
+        }
+
+        $oldActive.removeClass("chip--active").attr("aria-pressed", "false");
+        $currentChip.addClass("chip--active").attr("aria-pressed", "true");
     });
-}
 
-function initCardClickOpen() {
-    document.querySelectorAll(".product-card").forEach((card) => {
-        let startX = 0;
-        let startY = 0;
-        let moved = false;
-
-        card.addEventListener("pointerdown", (e) => {
-            startX = e.clientX;
-            startY = e.clientY;
-            moved = false;
-        });
-
-        card.addEventListener("pointermove", (e) => {
-            if (moved) return;
-            const dx = Math.abs(e.clientX - startX);
-            const dy = Math.abs(e.clientY - startY);
-            if (dx + dy > 10) moved = true;
-        });
-
-        card.addEventListener("click", (e) => {
-            if (moved) return;
-            if (e.defaultPrevented) return;
-            if (e.target.closest(".js-interactive")) return;
-
-            const href = card.getAttribute("data-card-href");
-            if (!href) return;
-
-            window.open(href, "_blank", "noopener,noreferrer");
-        });
+    $(".product-card__likes").on("click", function (e) {
+        e.stopPropagation();
+        $(this).toggleClass("product-card__likes--active");
+        const isPressed = $(this).attr("aria-pressed") === "true";
+        $(this).attr("aria-pressed", !isPressed);
     });
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-    initFancybox();
-    initSwipers();
-    initCardClickOpen();
+    $(".product-card").on("click", function (e) {
+        if ($(e.target).closest(".js-interactive").length) return;
+
+        window.open("/card", "_blank");
+    });
 });
